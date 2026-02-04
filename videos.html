@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL 2026 - Videos</title>
+    <meta name="description" content="Watch the latest IPL 2026 videos, match highlights, player interviews, and exclusive behind-the-scenes content.">
+    <meta name="keywords" content="IPL 2026 videos, cricket highlights, match replays, player interviews, IPL clips">
+    <meta name="author" content="IPL T20">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://indian-premier-league.in/videos.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://indian-premier-league.in/videos.html">
+    <meta property="og:title" content="IPL 2026 - Videos">
+    <meta property="og:description" content="Watch the latest IPL 2026 videos, match highlights, and exclusive content.">
+    <meta property="og:image" content="ipl.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://indian-premier-league.in/videos.html">
+    <meta property="twitter:title" content="IPL 2026 - Videos">
+    <meta property="twitter:description" content="Watch the latest IPL 2026 videos, match highlights, and exclusive content.">
+    <meta property="twitter:image" content="ipl.png">
+
+    <link rel="icon" type="image/x-icon" href="ipl.png"/>
+    <style>
+        :root {
+            --primary-color: #1d3557;
+            --secondary-color: #e63946;
+            --text-color: #333;
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header h1 { margin: 0; font-size: 1.8rem; }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--secondary-color); }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .video-card:hover { transform: translateY(-5px); }
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+        }
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .video-card:hover .video-thumbnail img { opacity: 1; }
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0.9;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .video-info { padding: 1.5rem; }
+        .video-info h3 { margin-top: 0; color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .video-meta { color: #666; font-size: 0.9rem; display: flex; justify-content: space-between; }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.9); 
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            position: relative;
+            background-color: #000;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+        .close {
+            color: white;
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        .close:hover { color: #bbb; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>IPL T20</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/teams">Teams</a></li>
+                <li><a href="/schedule">Schedule</a></li>
+                <li><a href="/videos">Videos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Latest Videos</h2>
+        <div class="video-grid">
+            <div class="video-card" data-video-id="M7lc1UVf-VE">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="TATA IPL 2025 Final Highlights">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>TATA IPL 2025 Final Highlights: KKR vs SRH</h3>
+                    <div class="video-meta">
+                        <span>15:20</span>
+                        <span>1 year ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="aqz-KE-bpKQ">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="Top 10 Catches of IPL History">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Top 10 Catches of IPL History (2008-2025)</h3>
+                    <div class="video-meta">
+                        <span>08:45</span>
+                        <span>2 months ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="ScMzIvxBSi4">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="MS Dhoni Best Finishes">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>MS Dhoni's Best Last Over Finishes in IPL</h3>
+                    <div class="video-meta">
+                        <span>12:10</span>
+                        <span>3 weeks ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="C0DPdy98e4c">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="Virat Kohli Century">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Virat Kohli 113* vs RR - Full Innings Highlights</h3>
+                    <div class="video-meta">
+                        <span>14:30</span>
+                        <span>1 year ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="LXb3EKWsInQ">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="IPL 2026 Auction Recap">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>IPL 2026 Auction: Most Expensive Buys & Steals</h3>
+                    <div class="video-meta">
+                        <span>25:00</span>
+                        <span>1 month ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="jNQXAC9IVRw">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="Best Super Overs">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Thrilling Super Overs in IPL History</h3>
+                    <div class="video-meta">
+                        <span>10:24</span>
+                        <span>6 months ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="5dsGWM5XGdg">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="Rohit Sharma Batting">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Rohit Sharma's Classy Pull Shots Compilation</h3>
+                    <div class="video-meta">
+                        <span>05:12</span>
+                        <span>4 months ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card" data-video-id="9bZkp7q19f0">
+                <div class="video-thumbnail">
+                    <img src="ipl.png" alt="IPL Funny Moments">
+                    <div class="play-icon">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Funniest Moments in IPL History</h3>
+                    <div class="video-meta">
+                        <span>08:45</span>
+                        <span>1 year ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Indian Premier League (IPL). All rights reserved.</p>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="video-container">
+                <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("videoModal");
+        const videoFrame = document.getElementById("videoFrame");
+        const closeBtn = document.querySelector(".close");
+
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const videoId = this.getAttribute('data-video-id');
+                const externalUrl = this.getAttribute('data-external-url');
+                
+                if (externalUrl) {
+                    window.open(externalUrl, '_blank');
+                } else if (videoId) {
+                    videoFrame.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&mute=1&rel=0";
+                    modal.style.display = "flex";
+                }
+            });
+        });
+
+        const closeModal = () => {
+            modal.style.display = "none";
+            videoFrame.src = "";
+        };
+
+        closeBtn.onclick = closeModal;
+        window.onclick = (event) => { if (event.target == modal) closeModal(); };
+    </script>
+</body>
+</html>
